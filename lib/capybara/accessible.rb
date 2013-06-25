@@ -1,4 +1,6 @@
 require 'capybara'
+require 'capybara/accessible/auditor'
+require 'capybara/accessible/element'
 require "capybara/accessible/version"
 
 module Capybara

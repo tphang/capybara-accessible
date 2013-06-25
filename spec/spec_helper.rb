@@ -13,3 +13,5 @@ $LOAD_PATH << File.join(PROJECT_ROOT, 'lib')
 RSpec.configure do |c|
   Capybara::SpecHelper.configure(c)
 end
+
+Capybara.current_driver = :accessible
