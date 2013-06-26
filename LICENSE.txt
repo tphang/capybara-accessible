@@ -1,4 +1,4 @@
-Copyright (c) 2013 TODO: Write your name
+Copyright (c) 2010-13 Case Commons, Inc.
 
 MIT License
 
