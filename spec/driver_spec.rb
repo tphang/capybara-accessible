@@ -21,8 +21,14 @@ describe Capybara::Accessible::Driver do
       expect { @session.click_link('inaccessible') }.to raise_error(Capybara::Accessible::InaccessibleError)
     end
 
-  it 'fails the audit for an inaccessible page' do
-    @session.visit('/accessible')
-    expect { @session.click_link('inaccessible') }.to raise_error(Capybara::Accessible::InaccessibleError)
+    context 'with configuration that excludes rules' do
+      before do
+        Capybara::Accessible::Auditor.exclusions = ['AX_TEXT_01']
+      end
+
+      it 'does not raise an error on an excluded rule' do
+        expect { @session.visit('/inaccessible') }.to_not raise_error(Capybara::Accessible::InaccessibleError)
+      end
+    end
   end
 end

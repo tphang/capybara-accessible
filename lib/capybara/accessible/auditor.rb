@@ -2,12 +2,21 @@ module Capybara::Accessible
   class InaccessibleError < Capybara::CapybaraError; end
 
   module Auditor
+    def self.exclusions=(rules)
+      @@exclusions = rules
+    end
+
+    def self.exclusions
+      @@exclusions ||= []
+    end
+
     def audit_rules
       File.read(File.expand_path("../axs_testing.js", __FILE__))
     end
 
     def audit_results
-      excluded_assertions = %w{ AX_FOCUS_01 AX_FOCUS_02 AX_COLOR_01 }
+      excluded_assertions = Capybara::Accessible::Auditor.exclusions
+
       results.reject do |r|
         excluded_assertions.include?(r['rule']['code'])
       end
