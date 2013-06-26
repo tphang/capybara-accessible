@@ -14,7 +14,7 @@ module Capybara::Accessible
     end
 
     def failure_messages
-      results.collect do |f|
+      audit_results.collect do |f|
         "<#{f['elements'].first.tag_name}> tag with text \"#{f['elements'].first.text}\" - #{f['rule']['heading']}" if f['result'] == 'FAIL'
       end.join("\n")
     end
