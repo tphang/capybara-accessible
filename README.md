@@ -10,7 +10,6 @@ Use capybara-accessible in place of the Selenium or capybara-webkit drivers to i
 
 Add this line to your application's Gemfile:
 
-    gem 'selenium-webdriver'
     gem 'capybara-accessible'
 
 And then execute:
