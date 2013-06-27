@@ -1,10 +1,11 @@
 # Capybara::Accessible
 
-Defines a web driver and extends Capybara to assert accessibility on page visits in [RSpec feature specs](https://www.relishapp.com/rspec/rspec-rails/docs/feature-specs/feature-spec).
+capybara-accessible automatically runs [Google's Accessibility Developer Tools](https://code.google.com/p/accessibility-developer-tools/) audits within your Ruby on Rails project integration test suite, using [RSpec feature specs](https://www.relishapp.com/rspec/rspec-rails/docs/feature-specs/feature-spec).
 
-capybara-accessible uses [Google's Accessibility Developer Tools](https://code.google.com/p/accessibility-developer-tools/) assertions to performs automated accessibility audits.
+It does this by extending Capybara and defining a custom webdriver that runs javascript assertions on every page visit and link/button click.
+This way you do not need to make explicit assertions on accessibility. Instead, the test will simply fail with a message indicating the accessibility errors.
 
-Use capybara-accessible in place of the Selenium or capybara-webkit drivers to invoke these assertions on link clicks and page visits.
+You can use capybara-accessible as a drop-in replacement for Rack::Test, Selenium or capybara-webkit drivers.
 
 ## Installation
 
@@ -31,9 +32,11 @@ Require and register the driver in spec_helper.rb:
 
 Optionally exclude rules from being run:
 
-    Capybara::Accessible::Auditor.exclusions = ['AX_FOCUS_01']
+    Capybara::Accessible::Auditor.exclusions = ['AX_FOCUS_01', 'AX_TEXT_01']
 
-The full list of rules is on the [Google Accessibility Developer Tools wiki](https://code.google.com/p/accessibility-developer-tools/wiki/AuditRules).
+You can use exclusions to supress failures for accessibility errors that you cannot immediately address, without turning off all assertions.
+
+The full list of accessibility audit rules is on the [Google Accessibility Developer Tools wiki](https://code.google.com/p/accessibility-developer-tools/wiki/AuditRules).
 
 ## Contributing
 
