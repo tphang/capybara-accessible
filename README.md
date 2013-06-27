@@ -5,9 +5,12 @@ Automated accessibility testing for Rails integration tests (Rspec + Capybara)
 capybara-accessible automatically runs [Google's Accessibility Developer Tools](https://code.google.com/p/accessibility-developer-tools/) audits within your Ruby on Rails project integration test suite, using [RSpec feature specs](https://www.relishapp.com/rspec/rspec-rails/docs/feature-specs/feature-spec).
 
 It does this by extending Capybara and defining a custom webdriver that runs javascript assertions on every page visit and link/button click.
-This way you do not need to make explicit assertions on accessibility. Instead, the test will simply fail with a message indicating the accessibility errors.
+This way you do not need to make explicit assertions on accessibility. Instead, the test will simply fail with a message indicating the accessibility errors, like so:
 
-You can use capybara-accessible as a drop-in replacement for Rack::Test, Selenium or capybara-webkit drivers.
+    Failure/Error: @session.visit('/inaccessible')
+    Capybara::Accessible::InaccessibleError:
+
+      <input> tag with text "foo" - Controls and media elements should have labels
 
 ## Installation
 
@@ -25,27 +28,20 @@ Or install it yourself as:
 
 ## Usage
 
-Require and register the driver in spec_helper.rb:
+You can use capybara-accessible as a drop-in replacement for Rack::Test, Selenium or capybara-webkit drivers for Capybara. Simply set the driver in spec_helper.rb:
 
     require 'capybara/rspec'
     require 'capybara/accessible'
 
     Capybara.current_driver = :accessible
 
-Optionally exclude rules from being run:
+You can also optionally exclude individual accessibility assertions from being run:
 
     Capybara::Accessible::Auditor.exclusions = ['AX_FOCUS_01', 'AX_TEXT_01']
 
 You can use exclusions to supress failures for accessibility errors that you cannot immediately address, without turning off all assertions.
 
 The full list of accessibility audit rules is on the [Google Accessibility Developer Tools wiki](https://code.google.com/p/accessibility-developer-tools/wiki/AuditRules).
-
-Below is what an error looks like:
-
-    Failure/Error: @session.visit('/inaccessible')
-    Capybara::Accessible::InaccessibleError:
-
-      <input> tag with text "foo" - Controls and media elements should have labels
 
 ## Contributing
 
