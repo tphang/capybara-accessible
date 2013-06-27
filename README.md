@@ -1,10 +1,10 @@
 # Capybara::Accessible
 
-Defines a web driver and extends Capybara to assert accessibility on page visits in feature specs.
+Defines a web driver and extends Capybara to assert accessibility on page visits in [RSpec feature specs](https://www.relishapp.com/rspec/rspec-rails/docs/feature-specs/feature-spec).
 
 capybara-accessible uses [Google's Accessibility Developer Tools](https://code.google.com/p/accessibility-developer-tools/) assertions to performs automated accessibility audits.
 
-Use capybara-accessible in place of Selenium or capybara-webkit to invoke these assertions on link clicks and page visits.
+Use capybara-accessible in place of the Selenium or capybara-webkit drivers to invoke these assertions on link clicks and page visits.
 
 ## Installation
 
