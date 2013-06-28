@@ -9,7 +9,9 @@ Some of the checks that are included:
 * presence of alt attributes
 * valid use of ARIA roles
 
-It does this by extending Capybara and defining a custom webdriver that runs javascript assertions on every page visit and link/button click.
+The full list of accessibility audit rules is on the [Google Accessibility Developer Tools wiki](https://code.google.com/p/accessibility-developer-tools/wiki/AuditRules).
+
+capybara-accessible extends Capybara and defines a custom webdriver that runs javascript assertions on every page visit and link/button click.
 This way you do not need to make explicit assertions on accessibility. Instead, the test will simply fail with a message indicating the accessibility errors, like so:
 
     Failure/Error: @session.visit('/inaccessible')
@@ -47,8 +49,6 @@ You can also optionally exclude individual accessibility assertions from being r
     Capybara::Accessible::Auditor.exclusions = ['AX_FOCUS_01', 'AX_TEXT_01']
 
 You can use exclusions to supress failures for accessibility errors that you cannot immediately address, without turning off all assertions.
-
-The full list of accessibility audit rules is on the [Google Accessibility Developer Tools wiki](https://code.google.com/p/accessibility-developer-tools/wiki/AuditRules).
 
 ## Contributing
 
