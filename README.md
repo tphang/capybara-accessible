@@ -3,6 +3,12 @@
 Automated accessibility testing for Rails integration tests (Rspec + Capybara)
 capybara-accessible automatically runs [Google's Accessibility Developer Tools](https://code.google.com/p/accessibility-developer-tools/) audits within your Ruby on Rails project integration test suite, using [RSpec feature specs](https://www.relishapp.com/rspec/rspec-rails/docs/feature-specs/feature-spec).
 
+Some of the checks that are included:
+* minimum color contrast
+* label associations with inputs
+* presence of alt attributes
+* valid use of ARIA roles
+
 It does this by extending Capybara and defining a custom webdriver that runs javascript assertions on every page visit and link/button click.
 This way you do not need to make explicit assertions on accessibility. Instead, the test will simply fail with a message indicating the accessibility errors, like so:
 
