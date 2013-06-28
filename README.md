@@ -2,7 +2,7 @@
 
 Automated accessibility testing for Rails integration tests (Rspec + Capybara)
 
-{<img src="https://secure.travis-ci.org/Casecommons/capybara-accessible.png?branch=master" alt="Build Status" />}[http://travis-ci.org/Casecommons/capybara-accessible]
+[<img src="https://secure.travis-ci.org/Casecommons/capybara-accessible.png?branch=master" alt="Build Status" />](http://travis-ci.org/Casecommons/capybara-accessible)
 
 capybara-accessible automatically runs [Google's Accessibility Developer Tools](https://code.google.com/p/accessibility-developer-tools/) audits within your Ruby on Rails project integration test suite, using [RSpec feature specs](https://www.relishapp.com/rspec/rspec-rails/docs/feature-specs/feature-spec).
 
