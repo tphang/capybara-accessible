@@ -1,9 +1,6 @@
 # Capybara::Accessible
 
 Automated accessibility testing for Rails integration tests (Rspec + Capybara)
-
-[<img src="https://secure.travis-ci.org/Casecommons/capybara-accessible.png?branch=master" alt="Build Status" />](http://travis-ci.org/Casecommons/capybara-accessible)
-
 capybara-accessible automatically runs [Google's Accessibility Developer Tools](https://code.google.com/p/accessibility-developer-tools/) audits within your Ruby on Rails project integration test suite, using [RSpec feature specs](https://www.relishapp.com/rspec/rspec-rails/docs/feature-specs/feature-spec).
 
 It does this by extending Capybara and defining a custom webdriver that runs javascript assertions on every page visit and link/button click.
@@ -13,6 +10,8 @@ This way you do not need to make explicit assertions on accessibility. Instead, 
     Capybara::Accessible::InaccessibleError:
 
       <input> tag with text "foo" - Controls and media elements should have labels
+
+Need help? Ask on the mailing list (please do not open an issue on GitHub): https://groups.google.com/forum/#!forum/capybara-accessible
 
 ## Installation
 
