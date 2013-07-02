@@ -26,9 +26,7 @@ module Capybara::Accessible
     end
 
     def failure_messages
-      audit_results.collect do |f|
-        "<#{f['elements'].first.tag_name}> tag with text \"#{f['elements'].first.text}\" - #{f['rule']['heading']}" if f['result'] == 'FAIL'
-      end.join("\n")
+      run_script("#{audit_rules} var results = axs.Audit.run(); return axs.Audit.createReport(results)")
     end
 
     private
