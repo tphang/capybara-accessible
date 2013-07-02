@@ -16,10 +16,17 @@ The full list of accessibility audit rules is on the [Google Accessibility Devel
 capybara-accessible extends Capybara and defines a custom webdriver that runs javascript assertions on every page visit and link/button click.
 This way you do not need to make explicit assertions on accessibility. Instead, the test will simply fail with a message indicating the accessibility errors, like so:
 
-    Failure/Error: @session.visit('/inaccessible')
-    Capybara::Accessible::InaccessibleError:
+    Failure/Error: visit '/inaccessible'
+     Capybara::Accessible::InaccessibleError:
+       *** Begin accessibility audit results ***
+       An accessibility audit found
+       Errors:
+       Error: AX_ARIA_01 (Elements with ARIA roles must use a valid, non-abstract ARIA role) failed on the following element:
+       body > .outer > .standup > .block.buttons
+       See https://code.google.com/p/accessibility-developer-tools/wiki/AuditRules#AX_ARIA_01:_Elements_with_ARIA_roles_must_use_a_valid,_non-abstr for more information.
 
-      <input> tag with text "foo" - Controls and media elements should have labels
+
+       *** End accessibility audit results ***
 
 Need help? Ask on the mailing list (please do not open an issue on GitHub): https://groups.google.com/forum/#!forum/capybara-accessible
 
