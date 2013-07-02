@@ -1,5 +1,7 @@
 # Capybara::Accessible
 
+[![](https://api.tddium.com/pivotal-casebook/capybara-accessible/badges/25347.png?badge_token=1e276156136851abb3ca113d37e1cddca332e098)](https://api.tddium.com/pivotal-casebook/capybara-accessible/suites/25347)
+
 Automated accessibility testing for Rails integration tests (Rspec + Capybara)
 capybara-accessible automatically runs [Google's Accessibility Developer Tools](https://code.google.com/p/accessibility-developer-tools/) audits within your Ruby on Rails project integration test suite, using [RSpec feature specs](https://www.relishapp.com/rspec/rspec-rails/docs/feature-specs/feature-spec).
 
