@@ -23,7 +23,7 @@ describe Capybara::Accessible::Driver do
 
     context 'with configuration that excludes rules' do
       before do
-        Capybara::Accessible::Auditor.exclusions = ['controlsWithoutLabel']
+        Capybara::Accessible::Auditor.exclusions = ['AX_TEXT_01']
       end
 
       it 'does not raise an error on an excluded rule' do

@@ -32,7 +32,26 @@ module Capybara::Accessible
     private
 
     def excluded_rules
-      Capybara::Accessible::Auditor.exclusions
+      codes = Capybara::Accessible::Auditor.exclusions
+      mapping = {
+        'AX_ARIA_01' => 'badAriaRole',
+        'AX_ARIA_02' => 'nonExistentAriaLabelledbyElement',
+        'AX_ARIA_03' => 'requiredAriaAttributeMissing',
+        'AX_ARIA_04' => 'badAriaAttributeValue',
+        'AX_TEXT_01' => 'controlsWithoutLabel',
+        'AX_TEXT_02' => 'imagesWithoutAltText',
+        'AX_TITLE_01' => 'pageWithoutTitle',
+        'AX_IMAGE_01' => 'elementsWithMeaningfulBackgroundImage',
+        'AX_FOCUS_01' => 'focusableElementNotVisibleAndNotAriaHidden',
+        'AX_FOCUS_02' => 'unfocusableElementsWithOnClick',
+        'AX_COLOR_01' => 'lowContrastElements',
+        'AX_VIDEO_01' => 'videoWithoutCaptions',
+        'AX_AUDIO_01' => 'audioWithoutControls'
+        # 'AX_TITLE_01' => 'linkWithUnclearPurpose', # This has a duplicate name
+        # 'AX_ARIA_05' => '', # This has no rule associated with it
+      }
+
+      names = codes.map { |code| mapping[code]}
     end
 
     def run_script(script)
