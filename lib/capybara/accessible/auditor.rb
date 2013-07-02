@@ -14,12 +14,15 @@ module Capybara::Accessible
       File.read(File.expand_path("../axs_testing.js", __FILE__))
     end
 
-    def audit_results
-      excluded_assertions = Capybara::Accessible::Auditor.exclusions
+    def audit_failures
+      script =<<-JAVASCRIPT
+        var config = new axs.AuditConfiguration();
+        config.auditRulesToIgnore = #{excluded_rules.to_json};
+        results = axs.Audit.run(config);
+        return axs.Audit.auditResults(results).getErrors();
+      JAVASCRIPT
 
-      results.reject do |r|
-        excluded_assertions.include?(r['rule']['code'])
-      end
+      run_script("#{audit_rules} #{script}")
     end
 
     def failure_messages
@@ -28,9 +31,13 @@ module Capybara::Accessible
       end.join("\n")
     end
 
-    def results
-      script = "#{audit_rules} return axs.Audit.run();"
+    private
 
+    def excluded_rules
+      Capybara::Accessible::Auditor.exclusions
+    end
+
+    def run_script(script)
       if @session
         @session.driver.execute_script(script)
       else

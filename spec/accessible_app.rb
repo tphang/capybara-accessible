@@ -6,6 +6,10 @@ class AccessibleApp < TestApp
   end
 
   get '/inaccessible' do
+    '<div role="zomg"></div>'
+  end
+
+  get '/excluded' do
     '<form><input type="text" name="foo" id="foo"/></form>'
   end
 

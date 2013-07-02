@@ -23,11 +23,11 @@ describe Capybara::Accessible::Driver do
 
     context 'with configuration that excludes rules' do
       before do
-        Capybara::Accessible::Auditor.exclusions = ['AX_TEXT_01']
+        Capybara::Accessible::Auditor.exclusions = ['controlsWithoutLabel']
       end
 
       it 'does not raise an error on an excluded rule' do
-        expect { @session.visit('/inaccessible') }.to_not raise_error(Capybara::Accessible::InaccessibleError)
+        expect { @session.visit('/excluded') }.to_not raise_error(Capybara::Accessible::InaccessibleError)
       end
     end
   end

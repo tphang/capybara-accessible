@@ -4,7 +4,7 @@ module Capybara::Accessible
 
     def visit(path)
       super
-      if audit_results.any? { |r| r['result'] == 'FAIL' }
+      if audit_failures.any?
         raise Capybara::Accessible::InaccessibleError, failure_messages
       end
     end

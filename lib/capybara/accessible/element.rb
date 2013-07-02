@@ -6,7 +6,7 @@ module Capybara
       def click
         synchronize { base.click }
         begin
-          if Capybara.current_driver == :accessible && audit_results.any? { |r| r['result'] == 'FAIL' }
+          if Capybara.current_driver == :accessible && audit_failures.any?
             raise Capybara::Accessible::InaccessibleError, failure_messages
           end
         rescue ::Selenium::WebDriver::Error::UnhandledAlertError => e
