@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    capybara-accessible (0.0.1)
+    capybara-accessible (0.1.0)
       capybara (~> 2.0, >= 2.0.2)
       selenium-webdriver
 
