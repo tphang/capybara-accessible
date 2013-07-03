@@ -15,21 +15,23 @@ module Capybara::Accessible
     end
 
     def audit_failures
-      script =<<-JAVASCRIPT
-        var config = new axs.AuditConfiguration();
-        config.auditRulesToIgnore = #{excluded_rules.to_json};
-        results = axs.Audit.run(config);
-        return axs.Audit.auditResults(results).getErrors();
-      JAVASCRIPT
-
-      run_script("#{audit_rules} #{script}")
+      run_script("#{perform_audit_script} return axs.Audit.auditResults(results).getErrors();")
     end
 
     def failure_messages
-      run_script("#{audit_rules} var results = axs.Audit.run(); return axs.Audit.createReport(results)")
+      run_script("#{perform_audit_script} return axs.Audit.createReport(results)")
     end
 
     private
+
+    def perform_audit_script
+      <<-JAVASCRIPT
+        #{audit_rules}
+        var config = new axs.AuditConfiguration();
+        config.auditRulesToIgnore = #{excluded_rules.to_json};
+        var results = axs.Audit.run(config);
+      JAVASCRIPT
+    end
 
     def excluded_rules
       codes = Capybara::Accessible::Auditor.exclusions
@@ -51,7 +53,7 @@ module Capybara::Accessible
         # 'AX_ARIA_05' => '', # This has no rule associated with it
       }
 
-      names = codes.map { |code| mapping[code]}
+      codes.map { |code| mapping[code]}
     end
 
     def run_script(script)
