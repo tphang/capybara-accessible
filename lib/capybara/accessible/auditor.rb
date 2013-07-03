@@ -15,18 +15,21 @@ module Capybara::Accessible
     end
 
     def audit_failures
-      run_script("#{perform_audit_script} return axs.Audit.auditResults(results).getErrors();")
+      run_script(audit_rules)
+      run_script(generate_results)
+      run_script("axs.Audit.auditResults(results).getErrors();")
     end
 
     def failure_messages
-      run_script("#{perform_audit_script} return axs.Audit.createReport(results)")
+      run_script(audit_rules)
+      run_script(generate_results)
+      run_script("axs.Audit.createReport(results)")
     end
 
     private
 
-    def perform_audit_script
+    def generate_results
       <<-JAVASCRIPT
-        #{audit_rules}
         var config = new axs.AuditConfiguration();
         config.auditRulesToIgnore = #{excluded_rules.to_json};
         var results = axs.Audit.run(config);
@@ -58,9 +61,9 @@ module Capybara::Accessible
 
     def run_script(script)
       if @session
-        @session.driver.execute_script(script)
+        @session.driver.evaluate_script(script)
       else
-        execute_script(script)
+        evaluate_script(script)
       end
     end
   end

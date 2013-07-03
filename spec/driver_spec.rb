@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe Capybara::Accessible::Driver do
+describe Capybara::Accessible::DriverWebkit do
   before do
-    @session = Capybara::Session.new(:accessible, AccessibleApp)
+    @session = Capybara::Session.new(:accessible_webkit, AccessibleApp)
   end
 
   context 'a page without accessibility errors' do
@@ -18,7 +18,11 @@ describe Capybara::Accessible::Driver do
 
     it 'raises an exception when visiting the page via a link' do
       @session.visit('/accessible')
-      expect { @session.click_link('inaccessible') }.to raise_error(Capybara::Accessible::InaccessibleError)
+      expect {
+        binding.pry
+        click_on 'inaccessible'
+        # @session.click_link('inaccessible')
+      }.to raise_error(Capybara::Accessible::InaccessibleError)
     end
 
     context 'with configuration that excludes rules' do

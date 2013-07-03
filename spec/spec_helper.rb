@@ -14,4 +14,4 @@ RSpec.configure do |c|
   Capybara::SpecHelper.configure(c)
 end
 
-Capybara.current_driver = :accessible
+Capybara.current_driver = :accessible_webkit
