@@ -3,6 +3,15 @@ require 'json'
 module Capybara::Accessible
   class InaccessibleError < Capybara::CapybaraError; end
 
+  class << self
+    def skip_audit
+      @disabled = true
+      yield
+    ensure
+      @disabled = false
+    end
+  end
+
   module Auditor
     def self.exclusions=(rules)
       @@exclusions = rules
@@ -17,7 +26,9 @@ module Capybara::Accessible
     end
 
     def audit_failures
-      run_script("#{perform_audit_script} return axs.Audit.auditResults(results).getErrors();")
+      unless @disabled
+        run_script("#{perform_audit_script} return axs.Audit.auditResults(results).getErrors();")
+      end
     end
 
     def failure_messages
