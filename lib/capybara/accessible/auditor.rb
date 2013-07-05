@@ -1,5 +1,3 @@
-require 'json'
-
 module Capybara::Accessible
   class InaccessibleError < Capybara::CapybaraError; end
 
@@ -14,6 +12,14 @@ module Capybara::Accessible
 
     def audit_rules
       File.read(File.expand_path("../axs_testing.js", __FILE__))
+    end
+
+    def webkit_audit_failures
+      run_webkit_script("#{perform_audit_script} axs.Audit.auditResults(results).getErrors();")
+    end
+
+    def webkit_failure_messages
+      run_webkit_script("#{perform_audit_script} axs.Audit.createReport(results)")
     end
 
     def audit_failures
@@ -63,6 +69,14 @@ module Capybara::Accessible
         @session.driver.execute_script(script)
       else
         execute_script(script)
+      end
+    end
+
+    def run_webkit_script(script)
+      if @session
+        @session.driver.evaluate_script(script)
+      else
+        evaluate_script(script)
       end
     end
   end

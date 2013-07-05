@@ -5,12 +5,18 @@ module Capybara
 
       def click
         synchronize { base.click }
-        begin
-          if Capybara.current_driver == :accessible && audit_failures.any?
-            raise Capybara::Accessible::InaccessibleError, failure_messages
+        if Capybara.current_driver == :accessible
+          begin
+            if audit_failures.any?
+              raise Capybara::Accessible::InaccessibleError, failure_messages
+            end
+          rescue ::Selenium::WebDriver::Error::UnhandledAlertError => e
+            puts "Skipping accessibility audit: #{e}"
           end
-        rescue ::Selenium::WebDriver::Error::UnhandledAlertError => e
-          puts "Skipping accessibility audit: #{e}"
+        elsif Capybara.current_driver == :accessible_webkit
+          if webkit_audit_failures.any?
+            raise Capybara::Accessible::InaccessibleError, webkit_failure_messages
+          end
         end
       end
     end
