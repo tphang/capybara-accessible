@@ -8,5 +8,5 @@ RSpec::Core::RakeTask.new do |t|
   t.rspec_opts = "--format progress"
 end
 
-desc "Default: build and run all specs"
-task :default => [:build, :spec]
+desc "Default: run all specs"
+task :default => [:spec]
