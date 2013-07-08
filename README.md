@@ -79,6 +79,8 @@ You can disable audits on individual tests by tagging the example or group as `i
 
 ## Contributing
 
+axs_testing.js is generated. If you want to change the audit rules, please contribute to this repo: https://github.com/ckundo/accessibility-developer-tools
+
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
