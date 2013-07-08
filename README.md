@@ -58,12 +58,24 @@ You can use capybara-accessible as a drop-in replacement for Rack::Test, Seleniu
 ### Disabling audits
 You can disable audits on individual tests by tagging the example or group as `inaccessible: true`, and configuring Rspec like so:
 
+    # spec/spec_helper.rb
+
     RSpec.configure do |config|
       config.around(:each, :inaccessible => true) do |example|
         Capybara::Accessible.skip_audit { example }
       end
     end
 
+
+    # spec/features/inaccessible_page_spec.rb
+
+    # Blocks tagged inaccessible will skip accessibility assertions.
+    # They will still run your other native assertions.
+    describe '/inaccessible', inaccessible: true do 
+      it 'display an image' do
+        page.should have_css 'img'
+      end
+    end
 
 ## Contributing
 
