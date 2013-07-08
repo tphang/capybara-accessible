@@ -32,7 +32,7 @@ module Capybara::Accessible
     end
 
     def failure_messages
-      run_script("#{perform_audit_script} return axs.Audit.createReport(results)")
+      "Found at #{page_url} \n\n" + run_script("#{perform_audit_script} return axs.Audit.createReport(results)")
     end
 
     private
@@ -67,6 +67,10 @@ module Capybara::Accessible
       }
 
       codes.map { |code| mapping[code]}
+    end
+
+    def page_url
+      @session ? @session.driver.current_url : current_url
     end
 
     def run_script(script)
