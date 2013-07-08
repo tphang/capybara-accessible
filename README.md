@@ -55,15 +55,6 @@ You can use capybara-accessible as a drop-in replacement for Rack::Test, Seleniu
 
     Capybara.current_driver = :accessible
 
-### Excluding assertions
-You can also optionally exclude individual accessibility assertions from being run:
-
-    Capybara::Accessible::Auditor.exclusions = ['AX_FOCUS_01', 'AX_TEXT_01']
-
-You can use exclusions to supress failures for accessibility errors that you cannot immediately address, without turning off all assertions.
-
-See the [Google Accessibility Developer Tools wiki](https://code.google.com/p/accessibility-developer-tools/wiki/AuditRules) for the complete list of codes.
-
 ### Disabling audits
 You can disable audits on individual tests by tagging the example or group as `inaccessible: true`, and configuring Rspec like so:
 
