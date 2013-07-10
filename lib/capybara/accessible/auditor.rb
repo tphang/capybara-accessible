@@ -1,5 +1,3 @@
-require 'json'
-
 module Capybara::Accessible
   class InaccessibleError < Capybara::CapybaraError; end
 
