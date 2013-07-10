@@ -27,7 +27,7 @@ describe Capybara::Accessible::Driver do
       end
 
       it 'does not raise an error on an excluded rule' do
-        expect { @session.visit('/excluded') }.to_not raise_error(Capybara::Accessible::InaccessibleError)
+        expect { @session.visit('/excluded') }.to_not raise_error
       end
     end
   end
