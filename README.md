@@ -53,7 +53,7 @@ You can use capybara-accessible as a drop-in replacement for Rack::Test, Seleniu
     require 'capybara/rspec'
     require 'capybara/accessible'
 
-    Capybara.current_driver = :accessible
+    Capybara.default_driver = :accessible
 
 ### Disabling audits
 You can disable audits on individual tests by tagging the example or group as `inaccessible: true`, and configuring Rspec like so:
