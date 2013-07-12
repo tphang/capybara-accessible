@@ -3,3 +3,5 @@
   :test_pattern:
     - spec/**_spec.rb
   :firefox: "10.0.5esr"
+  :hooks:
+    :pre: /bin/true
