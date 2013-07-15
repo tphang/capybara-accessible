@@ -20,7 +20,7 @@ module Capybara::Accessible
     end
 
     def audit_rules
-      File.read(File.expand_path("../axs_testing.js", __FILE__))
+      File.read(File.expand_path("../../../../vendor/accessibility-developer-tools/gen/axs_testing.js", __FILE__))
     end
 
     def audit_failures
