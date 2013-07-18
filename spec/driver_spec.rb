@@ -38,10 +38,4 @@ describe Capybara::Accessible::Driver do
       expect { @session.click_link('Alert!') }.to_not raise_error
     end
   end
-
-  context 'a test tagged as inaccessible' do
-    it 'does not get run', inaccessible: true  do
-      true.should == false
-    end
-  end
 end
