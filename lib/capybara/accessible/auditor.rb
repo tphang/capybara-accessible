@@ -24,7 +24,9 @@ module Capybara::Accessible
     end
 
     def audit_failures
-      unless @disabled
+      if Capybara::Accessible.instance_variable_get(:@disabled)
+        []
+      else
         run_script("#{perform_audit_script} return axs.Audit.auditResults(results).getErrors();")
       end
     end
