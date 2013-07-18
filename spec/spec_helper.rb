@@ -13,7 +13,7 @@ $LOAD_PATH << File.join(PROJECT_ROOT, 'lib')
 RSpec.configure do |c|
   Capybara::SpecHelper.configure(c)
   c.around(:each, :inaccessible => true) do |example|
-    Capybara::Accessible.skip_audit { example }
+    Capybara::Accessible.skip_audit { example.run }
   end
 end
 

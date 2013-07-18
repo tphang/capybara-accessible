@@ -62,7 +62,7 @@ You can disable audits on individual tests by tagging the example or group as `i
 
     RSpec.configure do |config|
       config.around(:each, :inaccessible => true) do |example|
-        Capybara::Accessible.skip_audit { example }
+        Capybara::Accessible.skip_audit { example.run }
       end
     end
 
