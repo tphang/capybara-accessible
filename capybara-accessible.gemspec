@@ -14,6 +14,20 @@ Gem::Specification.new do |spec|
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
+
+  # Taken from http://somethingaboutcode.wordpress.com/2012/09/27/include-files-from-git-submodules-when-building-a-ruby-gem/
+  gem_dir = File.expand_path(File.dirname(__FILE__)) + "/"
+  `git submodule --quiet foreach pwd`.split($\).each do |submodule_path|
+    Dir.chdir(submodule_path) do
+      submodule_relative_path = submodule_path.sub gem_dir, ""
+      # issue git ls-files in submodule's directory and
+      # prepend the submodule path to create absolute file paths
+      `git ls-files`.split($\).each do |filename|
+        spec.files << "#{submodule_relative_path}/#{filename}"
+      end
+    end
+  end
+
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
