@@ -28,7 +28,7 @@ This way you do not need to make explicit assertions on accessibility. Instead, 
 
        *** End accessibility audit results ***
 
-Need help? Ask on the mailing list (please do not open an issue on GitHub): https://groups.google.com/forum/#!forum/capybara-accessible
+Need help? Ask on the mailing list (please reserve issues on GitHub for bugs): https://groups.google.com/forum/#!forum/capybara-accessible
 
 Visit the [wiki](https://github.com/Casecommons/capybara-accessible/wiki) for more background on automated accessibility testing with capybara-accessible.
 
