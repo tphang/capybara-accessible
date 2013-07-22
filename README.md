@@ -56,6 +56,8 @@ You can use capybara-accessible as a drop-in replacement for Rack::Test, Seleniu
     Capybara.default_driver = :accessible
     Capybara.javascript_driver = :accessible
 
+We suggest that you use [pry-rescue with pry-stack_explorer](https://github.com/ConradIrwin/pry-rescue) to debug the accessibility failures in the DOM.
+
 ### Disabling audits
 You can disable audits on individual tests by tagging the example or group as `inaccessible: true`, and configuring Rspec like so:
 
