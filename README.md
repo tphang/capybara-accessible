@@ -3,7 +3,7 @@
 ## Automated accessibility testing in RSpec and Rails
 
 capybara-accessible introduces accessibility tests into your [Rspec integration tests](https://www.relishapp.com/rspec/rspec-rails/docs/feature-specs/feature-spec), 
-helping you to capture existing failures and to prevent future regressions.
+helping you to capture existing failures and prevent future regressions.
 
 It works by defining a custom webdriver that runs [Google's Accessibility Developer Tools](https://github.com/GoogleChrome/accessibility-developer-tools)
 audits during each test run. Since the audits are invoked automatically on page load, you do not need to make explicit assertions on accessibility. 
