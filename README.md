@@ -1,53 +1,58 @@
 # capybara-accessible
 
-Automated accessibility testing for Rails integration tests (Rspec + Capybara)
-capybara-accessible automatically runs [Google's Accessibility Developer Tools](https://code.google.com/p/accessibility-developer-tools/) audits within your Ruby on Rails project integration test suite, using [RSpec feature specs](https://www.relishapp.com/rspec/rspec-rails/docs/feature-specs/feature-spec).
+## Automated accessibility testing for Rails integration tests
 
-Some of the checks that are included:
+capybara-accessible automatically runs [Google's Accessibility Developer Tools](https://github.com/GoogleChrome/accessibility-developer-tools) 
+audits within your Ruby on Rails project integration test suite. 
+
+## Overview
+
+capybara-accessible extends Capybara and defines a custom webdriver that runs javascript assertions 
+on every page visit and link/button click in your [RSpec feature specs](https://www.relishapp.com/rspec/rspec-rails/docs/feature-specs/feature-spec).
+Since the audits are invoked automatically on page load, you do not need to make explicit assertions on accessibility. 
+Instead, the test will simply fail with a message indicating the accessibility errors, like so:
+
+![Error output from an Rspec failure](http://i.imgur.com/8RWEzzg.png)
+
+Some of the audit rules that are included from Google's Accessibility Developer Tools:
 * minimum color contrast
 * label associations with inputs
 * presence of alt attributes
 * valid use of ARIA roles
 
-The full list of accessibility audit rules is on the [Google Accessibility Developer Tools wiki](https://code.google.com/p/accessibility-developer-tools/wiki/AuditRules).
+The full list of accessibility audit rules is on the
+[Google Accessibility Developer Tools wiki](https://code.google.com/p/accessibility-developer-tools/wiki/AuditRules).
 
-capybara-accessible extends Capybara and defines a custom webdriver that runs javascript assertions on every page visit and link/button click.
-This way you do not need to make explicit assertions on accessibility. Instead, the test will simply fail with a message indicating the accessibility errors, like so:
+Visit the [wiki](https://github.com/Casecommons/capybara-accessible/wiki) for more background 
+on automated accessibility testing with capybara-accessible.
 
-![Error output from an Rspec failure](http://i.imgur.com/8RWEzzg.png)
+Need help? Ask on the mailing list (please only open issues on GitHub for bugs): 
+https://groups.google.com/forum/#!forum/capybara-accessible
 
-Need help? Ask on the mailing list (please reserve issues on GitHub for bugs): https://groups.google.com/forum/#!forum/capybara-accessible
-
-Visit the [wiki](https://github.com/Casecommons/capybara-accessible/wiki) for more background on automated accessibility testing with capybara-accessible.
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-    gem 'capybara-accessible'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install capybara-accessible
+Add `gem 'capybara-accessible'` to your application's Gemfile and run `bundle` on the command line.
 
 ## Usage
 
-You can use capybara-accessible as a drop-in replacement for Rack::Test, Selenium or capybara-webkit drivers for Capybara. Simply set the driver in spec_helper.rb:
+You can use capybara-accessible as a drop-in replacement for Rack::Test, Selenium or capybara-webkit drivers for Capybara.
+Simply set the driver in spec_helper.rb:
 
+    # spec/spec_helper.rb
     require 'capybara/rspec'
     require 'capybara/accessible'
 
     Capybara.default_driver = :accessible
     Capybara.javascript_driver = :accessible
 
-We suggest that you use [pry-rescue with pry-stack_explorer](https://github.com/ConradIrwin/pry-rescue) to debug the accessibility failures in the DOM.
+We suggest that you use [pry-rescue with pry-stack_explorer](https://github.com/ConradIrwin/pry-rescue) 
+to debug the accessibility failures in the DOM. pry-rescue will open a debugging session at the first exception, 
+pausing the driver so that you can inspect the page.
 
 ### Disabling audits
-You can disable audits on individual tests by tagging the example or group as `inaccessible: true`, and configuring Rspec like so:
+You can disable audits on individual tests by tagging the example or group as `inaccessible: true`, 
+and configuring Rspec like so:
 
     # spec/spec_helper.rb
 
@@ -60,20 +65,23 @@ You can disable audits on individual tests by tagging the example or group as `i
 
     # spec/features/inaccessible_page_spec.rb
 
-    # Blocks tagged inaccessible will skip accessibility assertions.
-    # They will still run your other native assertions.
+    # Page loads in examples tagged as inaccessible will not trigger an audit.
+    # All other assertions will be made.
     describe '/inaccessible', inaccessible: true do 
       it 'display an image' do
-        page.should have_css 'img'
+        page.should have_css 'img' # this assertion will still be executed
       end
     end
 
 ## Contributing
-
-NOTE: axs_testing.js is automatically generated by Google's Accessibility Developer tools project. If you want to modify the audit rules, please contribute to the Google project: https://github.com/GoogleChrome/accessibility-developer-tools
 
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+### Google Accessibility Developer Tools
+axs_testing.js is automatically generated by 
+[Google's Accessibility Developer Tools](https://github.com/GoogleChrome/accessibility-developer-tools) project. 
+If you want to modify the audit rules, please fork their Github repo.
