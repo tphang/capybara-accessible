@@ -1,4 +1,4 @@
-# Capybara::Accessible
+# capybara-accessible
 
 Automated accessibility testing for Rails integration tests (Rspec + Capybara)
 capybara-accessible automatically runs [Google's Accessibility Developer Tools](https://code.google.com/p/accessibility-developer-tools/) audits within your Ruby on Rails project integration test suite, using [RSpec feature specs](https://www.relishapp.com/rspec/rspec-rails/docs/feature-specs/feature-spec).
