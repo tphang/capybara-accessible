@@ -41,5 +41,12 @@ describe Capybara::Accessible::Driver do
         expect { @session.visit('/inaccessible') }.to_not raise_error
       end
     end
+
+    context 'a page with a javascript popup' do
+      it 'does not raise an exception' do
+        @session.visit('/alert')
+        expect { @session.click_link('Alert!') }.to_not raise_error
+      end
+    end
   end
 end
