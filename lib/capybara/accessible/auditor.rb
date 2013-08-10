@@ -19,6 +19,14 @@ module Capybara::Accessible
       @@exclusions ||= []
     end
 
+    def self.log_level=(level)
+      @@log_level= level
+    end
+
+    def self.log_level
+      @@log_level ||= :error
+    end
+
     def audit_rules
       File.read(File.expand_path("../../../vendor/google/accessibility-developer-tools/axs_testing.js", __FILE__))
     end
