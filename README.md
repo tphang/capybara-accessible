@@ -28,12 +28,12 @@ we built capybara-accessible.
 
 Add `gem 'capybara-accessible'` to your application's Gemfile and run `bundle` on the command line.
 
+
 ## Usage
 
 You can use capybara-accessible as a drop-in replacement for Rack::Test, Selenium or capybara-webkit drivers for Capybara.
-Simply set the driver in spec_helper.rb:
+Simply set the driver in `spec/spec_helper.rb` or `features/support/env.rb`:
 
-    # spec/spec_helper.rb
     require 'capybara/rspec'
     require 'capybara/accessible'
 
@@ -45,13 +45,14 @@ to debug the accessibility failures in the DOM. pry-rescue will open a debugging
 pausing the driver so that you can inspect the page.
 
 ### Disabling audits
-You can disable audits on individual tests by tagging the example or group as `inaccessible: true`, 
-and configuring Rspec like so:
+You can disable audits on individual tests by tagging the example or group with `inaccessible`.
+
+#### Rspec
 
     # spec/spec_helper.rb
 
     RSpec.configure do |config|
-      config.around(:each, :inaccessible => true) do |example|
+      config.around(:each, inaccessible: true) do |example|
         Capybara::Accessible.skip_audit { example.run }
       end
     end
@@ -61,11 +62,30 @@ and configuring Rspec like so:
 
     # Page loads in examples tagged as inaccessible will not trigger an audit.
     # All other assertions will be made.
-    describe '/inaccessible', inaccessible: true do 
-      it 'display an image' do
+    feature '/inaccessible', inaccessible: true do 
+      scenario 'displays an image' do
         page.should have_css 'img' # this assertion will still be executed
       end
     end
+
+#### Cucumber
+
+    # features/support/env.rb
+    
+    Around('@inaccessible') do |scenario, block|
+      Capybara::Accessible.skip_audit { block.call }
+    end
+
+
+    # features/inaccessible_page.feature
+
+    # Page loads in examples tagged as inaccessible will not trigger an audit.
+    # All other assertions will be made.
+    @inaccessible
+    Scenario: Visiting a page that is inaccessible
+      When I visit a page that is inaccessible
+      Then I should see the inaccessible image # this assertion will still be executed
+
 
 ## Support
 
