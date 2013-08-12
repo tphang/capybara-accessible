@@ -30,12 +30,23 @@ describe Capybara::Accessible::Driver do
         expect { @session.visit('/excluded') }.to_not raise_error
       end
     end
-  end
 
-  context 'a page with a javascript popup' do
-    it 'does not raise an exception' do
-      @session.visit('/alert')
-      expect { @session.click_link('Alert!') }.to_not raise_error
+    context 'with log level set to warn' do
+      before do
+        Capybara::Accessible::Auditor.log_level = :warn
+      end
+
+      it 'puts to stdout and does not raise an error' do
+        $stdout.should_receive(:puts)
+        expect { @session.visit('/inaccessible') }.to_not raise_error
+      end
+    end
+
+    context 'a page with a javascript popup' do
+      it 'does not raise an exception' do
+        @session.visit('/alert')
+        expect { @session.click_link('Alert!') }.to_not raise_error
+      end
     end
   end
 end
