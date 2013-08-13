@@ -8,7 +8,7 @@ module Capybara
         begin
           @session.driver.browser.switch_to.alert
           puts "Skipping accessibility audit: Modal dialog present"
-        rescue ::Selenium::WebDriver::Error::NoAlertOpenError
+        rescue ::Selenium::WebDriver::Error::NoAlertOpenError, ::NoMethodError
           if Capybara.current_driver == :accessible && audit_failures.any?
             if Capybara::Accessible::Auditor.log_level == :warn
               puts failure_messages
